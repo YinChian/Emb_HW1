@@ -63,8 +63,8 @@ all: main-build
 main-build: Digital_Clock.elf secondary-outputs
 
 # Tool invocations
-Digital_Clock.elf Digital_Clock.map: $(OBJS) $(USER_OBJS) Z:\Embbed_System\HW1\Digital_Clock\STM32F746NGHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Digital_Clock.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"Z:\Embbed_System\HW1\Digital_Clock\STM32F746NGHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Digital_Clock.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Digital_Clock.elf Digital_Clock.map: $(OBJS) $(USER_OBJS) Z:\Embbed_System\HW1\Emb_HW1\Digital_Clock\STM32F746NGHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Digital_Clock.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"Z:\Embbed_System\HW1\Emb_HW1\Digital_Clock\STM32F746NGHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Digital_Clock.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

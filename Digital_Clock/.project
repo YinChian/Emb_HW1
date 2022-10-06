@@ -29,26 +29,4 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Drivers/BSP/stm32746g_discovery.c</name>
-			<type>1</type>
-			<location>C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.17.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery.c</location>
-		</link>
-		<link>
-			<name>Drivers/BSP/stm32746g_discovery_lcd.c</name>
-			<type>1</type>
-			<location>C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_lcd.c</location>
-		</link>
-		<link>
-			<name>Drivers/BSP/stm32746g_discovery_sdram.c</name>
-			<type>1</type>
-			<location>C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.17.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_sdram.c</location>
-		</link>
-		<link>
-			<name>Drivers/BSP/stm32746g_discovery_ts.c</name>
-			<type>1</type>
-			<location>C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_ts.c</location>
-		</link>
-	</linkedResources>
 </projectDescription>

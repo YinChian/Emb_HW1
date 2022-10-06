@@ -52,7 +52,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Digital_Clock/Drivers/Components/ft5336}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Digital_Clock/Drivers/Components/rk043fn48h}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Digital_Clock/Drivers/Fonts}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\91kev\STM32Cube\Repository\STM32Cube_FW_F7_V1.17.0\Drivers\BSP\STM32746G-Discovery&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Digital_Clock/Drivers/BSP}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.1442834117" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>
 							</tool>

@@ -185,7 +185,8 @@ int main(void) {
 						sec--;
 					break;
 				}
-			} else if (TS_State.touchY[0] > 50 && TS_State.touchY[0] < 125
+			}
+			if (TS_State.touchY[0] > 50 && TS_State.touchY[0] < 125
 					&& TS_State.touchX[0] > 400 ) {
 				switch (mode) {
 				case 1:
@@ -208,6 +209,7 @@ int main(void) {
 					break;
 				}
 			}
+			BSP_TS_ResetTouchData(&TS_State);
 			HAL_Delay(10);
 		}
 		/* USER CODE END WHILE */

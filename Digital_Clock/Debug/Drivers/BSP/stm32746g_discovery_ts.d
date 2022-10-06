@@ -1,7 +1,7 @@
 Drivers/BSP/stm32746g_discovery_ts.o: \
- C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_ts.c \
- C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_ts.h \
- C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery.h \
+ ../Drivers/BSP/stm32746g_discovery_ts.c \
+ ../Drivers/BSP/stm32746g_discovery_ts.h \
+ ../Drivers/BSP/stm32746g_discovery.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h \
  ../Core/Inc/stm32f7xx_hal_conf.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h \
@@ -37,10 +37,10 @@ Drivers/BSP/stm32746g_discovery_ts.o: \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
- c:\users\91kev\stm32cube\repository\stm32cube_fw_f7_v1.15.0\drivers\bsp\components\ft5336\ft5336.h \
- c:\users\91kev\stm32cube\repository\stm32cube_fw_f7_v1.15.0\drivers\bsp\components\common\ts.h
-C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_ts.h:
-C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746G-Discovery/stm32746g_discovery.h:
+ ../Drivers/BSP/../Components/ft5336/ft5336.h \
+ ../Drivers/BSP/../Components/ft5336/../Common/ts.h
+../Drivers/BSP/stm32746g_discovery_ts.h:
+../Drivers/BSP/stm32746g_discovery.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
 ../Core/Inc/stm32f7xx_hal_conf.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_rcc.h:
@@ -76,5 +76,5 @@ C:/Users/91kev/STM32Cube/Repository/STM32Cube_FW_F7_V1.15.0/Drivers/BSP/STM32746
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
-c:\users\91kev\stm32cube\repository\stm32cube_fw_f7_v1.15.0\drivers\bsp\components\ft5336\ft5336.h:
-c:\users\91kev\stm32cube\repository\stm32cube_fw_f7_v1.15.0\drivers\bsp\components\common\ts.h:
+../Drivers/BSP/../Components/ft5336/ft5336.h:
+../Drivers/BSP/../Components/ft5336/../Common/ts.h:

@@ -48,6 +48,7 @@ DMA2D_HandleTypeDef hdma2d;
 LTDC_HandleTypeDef hltdc;
 
 TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim7;
 
 UART_HandleTypeDef huart1;
 
@@ -65,6 +66,7 @@ static void MX_FMC_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_TIM7_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -116,8 +118,10 @@ int main(void) {
 	MX_LTDC_Init();
 	MX_TIM6_Init();
 	MX_USART1_UART_Init();
+	MX_TIM7_Init();
 	/* USER CODE BEGIN 2 */
 	HAL_TIM_Base_Start_IT(&htim6);
+	HAL_TIM_Base_Start_IT(&htim7);
 	BSP_LCD_Init();
 	BSP_LCD_LayerDefaultInit(1, LCD_FB_START_ADDRESS);
 	BSP_LCD_SelectLayer(1);
@@ -134,7 +138,8 @@ int main(void) {
 		BSP_LCD_DisplayStringAt(0, BSP_LCD_GetYSize() - 80,
 				(uint8_t*) "TouchScreen cannot be initialized", CENTER_MODE);
 
-		while (1);
+		while (1)
+			;
 	}
 	__HAL_RCC_CRC_CLK_ENABLE();
 	BSP_LCD_DisplayStringAt(10, 60, (uint8_t*) "NTUST", CENTER_MODE);
@@ -149,19 +154,21 @@ int main(void) {
 		BSP_LCD_DisplayStringAt(10, 136, (uint8_t*) clock, CENTER_MODE);
 		if (HAL_GPIO_ReadPin(GPIOI, GPIO_PIN_11)) {
 			HAL_Delay(10);
-			while (HAL_GPIO_ReadPin(GPIOI, GPIO_PIN_11) != GPIO_PIN_SET);
+			while (HAL_GPIO_ReadPin(GPIOI, GPIO_PIN_11) != GPIO_PIN_SET)
+				;
 			if (mode == 3)
 				mode = 0;
 			else
 				mode++;
-			while (HAL_GPIO_ReadPin(GPIOI, GPIO_PIN_11) != GPIO_PIN_RESET);
+			while (HAL_GPIO_ReadPin(GPIOI, GPIO_PIN_11) != GPIO_PIN_RESET)
+				;
 		}
 
 		BSP_TS_GetState(&TS_State);
 		if (TS_State.touchEventId[0] == TOUCH_EVENT_PRESS_DOWN) {
 //			click ++;
-			x = (int)TS_State.touchX[0];
-			y = (int)TS_State.touchY[0];
+			x = (int) TS_State.touchX[0];
+			y = (int) TS_State.touchY[0];
 
 			if (TS_State.touchY[0] > 125 && TS_State.touchY[0] < 200
 					&& TS_State.touchX[0] > 400) {
@@ -187,7 +194,7 @@ int main(void) {
 				}
 			}
 			if (TS_State.touchY[0] > 50 && TS_State.touchY[0] < 125
-					&& TS_State.touchX[0] > 400 ) {
+					&& TS_State.touchX[0] > 400) {
 				switch (mode) {
 				case 1:
 					if (hr == 23)
@@ -209,10 +216,11 @@ int main(void) {
 					break;
 				}
 			}
-			BSP_TS_ResetTouchData(&TS_State);
+			//BSP_TS_ResetTouchData(&TS_State);
 			HAL_Delay(10);
 		}
 		/* USER CODE END WHILE */
+
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */
@@ -412,6 +420,42 @@ static void MX_TIM6_Init(void) {
 	/* USER CODE BEGIN TIM6_Init 2 */
 
 	/* USER CODE END TIM6_Init 2 */
+
+}
+
+/**
+ * @brief TIM7 Initialization Function
+ * @param None
+ * @retval None
+ */
+static void MX_TIM7_Init(void) {
+
+	/* USER CODE BEGIN TIM7_Init 0 */
+
+	/* USER CODE END TIM7_Init 0 */
+
+	TIM_MasterConfigTypeDef sMasterConfig = { 0 };
+
+	/* USER CODE BEGIN TIM7_Init 1 */
+
+	/* USER CODE END TIM7_Init 1 */
+	htim7.Instance = TIM7;
+	htim7.Init.Prescaler = 10799;
+	htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim7.Init.Period = 2499;
+	htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+	if (HAL_TIM_Base_Init(&htim7) != HAL_OK) {
+		Error_Handler();
+	}
+	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+	if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig)
+			!= HAL_OK) {
+		Error_Handler();
+	}
+	/* USER CODE BEGIN TIM7_Init 2 */
+
+	/* USER CODE END TIM7_Init 2 */
 
 }
 
@@ -902,30 +946,31 @@ static void MX_GPIO_Init(void) {
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-	if (htim->Instance == htim6.Instance) {
+	if (htim->Instance == htim6.Instance && mode == 0) {
 
+		if (count == 2) {
+			sec++;
+			count = 0;
+		}
+		if (sec == 60) {
+			min++;
+			sec = 0;
+		}
+		if (min == 60) {
+			hr++;
+			min = 0;
+		}
+		if (hr == 24) {
+			hr = 0;
+		}
+
+		count++;
+
+		sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
+	}
+
+	if (htim->Instance == htim7.Instance) {
 		switch (mode) {
-		case 0:
-			if (count == 2) {
-				sec++;
-				count = 0;
-			}
-			if (sec == 60) {
-				min++;
-				sec = 0;
-			}
-			if (min == 60) {
-				hr++;
-				min = 0;
-			}
-			if (hr == 24) {
-				hr = 0;
-			}
-
-			count++;
-
-			sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
-			break;
 		case 1:
 			if (blink == 1)
 				blink = 0;
@@ -960,59 +1005,59 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 			}
 		}
 	}
-		/*
-		 if(mode == 0){
+	/*
+	 if(mode == 0){
 
-		 }else if(mode == 1){
-		 if (blink == 2) blink = 0;
-		 else blink ++;
-		 if(blink){
-		 sprintf(clock, "   : %02d : %02d", min, sec);
-		 }else{
-		 sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
-		 }
+	 }else if(mode == 1){
+	 if (blink == 2) blink = 0;
+	 else blink ++;
+	 if(blink){
+	 sprintf(clock, "   : %02d : %02d", min, sec);
+	 }else{
+	 sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
+	 }
 
-		 }else if(mode == 2){
-		 if (blink == 2) blink = 0;
-		 else blink ++;
-		 if(blink){
-		 sprintf(clock, "%02d :    : %02d", hr, sec);
-		 }else{
-		 sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
-		 }
+	 }else if(mode == 2){
+	 if (blink == 2) blink = 0;
+	 else blink ++;
+	 if(blink){
+	 sprintf(clock, "%02d :    : %02d", hr, sec);
+	 }else{
+	 sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
+	 }
 
-		 }else if(mode == 3){
-		 if (blink == 2) blink = 0;
-		 else blink ++;
-		 if(blink){
-		 sprintf(clock, "%02d : %02d :   ", hr, min);
-		 }else{
-		 sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
-		 }
+	 }else if(mode == 3){
+	 if (blink == 2) blink = 0;
+	 else blink ++;
+	 if(blink){
+	 sprintf(clock, "%02d : %02d :   ", hr, min);
+	 }else{
+	 sprintf(clock, "%02d : %02d : %02d", hr, min, sec);
+	 }
 
-		 }
-		 }*/
+	 }
+	 }*/
+}
+
+int __io_putchar(int ch) {
+	HAL_UART_Transmit(&huart1, (uint8_t*) &ch, 1, 0xFFFF);
+	return ch;
+}
+
+/* USER CODE END 4 */
+
+/**
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
+void Error_Handler(void) {
+	/* USER CODE BEGIN Error_Handler_Debug */
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
 	}
-
-	int __io_putchar(int ch){
-		HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xFFFF);
-		return ch;
-	}
-
-	/* USER CODE END 4 */
-
-	/**
-	 * @brief  This function is executed in case of error occurrence.
-	 * @retval None
-	 */
-	void Error_Handler(void) {
-		/* USER CODE BEGIN Error_Handler_Debug */
-		/* User can add his own implementation to report the HAL error return state */
-		__disable_irq();
-		while (1) {
-		}
-		/* USER CODE END Error_Handler_Debug */
-	}
+	/* USER CODE END Error_Handler_Debug */
+}
 
 #ifdef  USE_FULL_ASSERT
 /**
